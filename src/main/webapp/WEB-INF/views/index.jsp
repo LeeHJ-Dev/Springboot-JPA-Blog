@@ -11,6 +11,23 @@
             </div>
     </div>
 </c:forEach>
-
 </div>
+
+<ul class="pagination justify-content-center">
+    <c:choose>
+        <c:when test="${boards.first}">
+            <li class="page-item disabled"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
+        </c:when>
+        <c:when test="${boards.last}">
+            <li class="page-item"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
+            <li class="page-item disabled"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
+        </c:when>
+        <c:otherwise>
+            <li class="page-item"><a class="page-link" href="?page=${boards.number-1}">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="?page=${boards.number+1}">Next</a></li>
+        </c:otherwise>
+    </c:choose>
+</ul>
+
 <%@ include file = "layout/footer.jsp" %>
