@@ -33,7 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         System.out.println("SecurityConfig.configure 111");
 
-        auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
+        auth.userDetailsService(principalDetailService)
+                .passwordEncoder(encodePWD());
     }
 
     @Override
@@ -43,15 +44,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // csrf 토큰 비활성화 ( 테스트시 걸어두는게 좋음)
                 .csrf()
                 .disable()
+
+                //
                 .authorizeRequests()
-                .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")        // 요청주소가 /auth/** 이면
-                .permitAll()                                // 접근을 허용한다.
-                .anyRequest()                               // 이외의 주소로 접근하는경우
-                .authenticated()                            // 사용자 인증이 되어 있어야 한다.
+
+                //antMatchers()에 등록된 Path 경로는 인증없으 접근을 허용한다.
+                .antMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")
+                .permitAll()
+
+                //antMatchers()에 등록된 Path 경로이외의 요청에 대해서는 사용자 인증이 되어 있어야 접근이 가능하다.
+                .anyRequest()
+                .authenticated()
+
+                //
                 .and()
                 .formLogin()
+
+                // "/auth/loginForm" 로그인 페이지에서 로그인을 진행하는경우
                 .loginPage("/auth/loginForm")
+
+                // "/auth/loginProc" Path 경로로 로그인(id/pass) 버튼을 클릭했을경우
+                // public class PrincipalDetailService implements UserDetailsService {
+                // UserDetailsService 인터페이스를 상속받은 PrincipalDetailService 클래스의 loadUserByUsername 함수를 호출한다.
                 .loginProcessingUrl("/auth/loginProc")      //스프링 시큐리티가 해당 주소로 요청오는 로그인을 가로채서 대신 로그인 해준다.
+
+                // 로그인 성공하면 "/" => (Http://localhost:8000) 경로로 이동한다.
                 .defaultSuccessUrl("/")
         ;
 

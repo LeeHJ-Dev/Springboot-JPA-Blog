@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * 사용자의 정보를 담을 객체(UserDetails 인터페이스를 상속받은 PrincipalDetail)를 생성하였으니, UserRepository Class 이용해서
+ * DB 에서 사용자의 정보를 불러오는 중요한 메소드를 구현해야한다.
+ * UserDetailsService Interface 선언된 loadUserByName() 메소드를 오버라이드 구현해야한다.
+ * 사용자의 정보를 조회하여 정보의 유/무에 따라 예외 or 사용자 정보를 리턴한다.
+ */
 @Service    //Bean 등록
 public class PrincipalDetailService implements UserDetailsService {
 
@@ -18,9 +24,6 @@ public class PrincipalDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
-        System.out.println("loadUserByUsername 회원이름 = " + username);
-
         User principal = userRepository
                 .findByUsername(username)
                 .orElseThrow(() -> {
