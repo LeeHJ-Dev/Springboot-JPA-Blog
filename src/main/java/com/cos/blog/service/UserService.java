@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Optional;
+
 @Service    //스프링이 컴포넌트 스캔을 통해서 Bean에 등록해준다.(IOC)
 //@RequiredArgsConstructor
 public class UserService {
@@ -33,6 +35,27 @@ public class UserService {
         user.setPassword(encPassword);
 
         userRepository.save(user);
+    }
+
+    @Transactional(readOnly = false)
+    public User 회원조회(Integer id) {
+        return userRepository.findById(id).orElseThrow(() -> {
+            return new IllegalArgumentException("회원정보 미존재");
+        });
+    }
+
+    @Transactional(readOnly = false)
+    public void 회원수정(User user) {
+        System.out.println("UserService.회원수정");
+        //회원영속화
+        User persistence = userRepository.findById(user.getId()).orElseThrow(() -> {
+            return new IllegalArgumentException("회원미존재");
+        });
+
+        //회원수정
+        //persistence.setUsername(requestUser.getUsername());
+        persistence.setPassword(encoder.encode(user.getPassword()));
+        persistence.setEmail(user.getEmail());
     }
 
     /*

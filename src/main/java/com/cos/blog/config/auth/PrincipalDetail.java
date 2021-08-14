@@ -16,10 +16,11 @@ import java.util.Collection;
  * UserDetails Interface 상속받은 PrincipalDetail 에서 Override Method 구현한다.
  * 이 인테페이스를 구현하게 되면 Spring Security 에서 구현한 클래스를 사용자 정보로 인식하고 인증 작업을 한다.
  * -> UserDetails 인터페이스는 VO(Value Object) 역할을 한다고 보면된다.
+ * <p>
  * 사용자의 정보를 모두 담아두는 클래스를 구현하면된다. 오버라이드 되는 메소드만 Spring Security 에서 알아서 이용하기 때문에
  * 따로 클래스를 만들지 않고 멤버변수를 추가해서 같이 사용해도 무방하다.
  * <p>
- * 1.
+ * 참고. UserDetails Interface
  */
 
 @Getter
