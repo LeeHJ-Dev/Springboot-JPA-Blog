@@ -52,10 +52,22 @@ public class UserService {
             return new IllegalArgumentException("회원미존재");
         });
 
+        //
+        if (persistence.getOauth() == null || persistence.getOauth().equals("")) {
+            persistence.setPassword(encoder.encode(user.getPassword()));
+        }
+
         //회원수정
         //persistence.setUsername(requestUser.getUsername());
-        persistence.setPassword(encoder.encode(user.getPassword()));
         persistence.setEmail(user.getEmail());
+    }
+
+    @Transactional(readOnly = true)
+    public User 회원찾기(String username) {
+        return userRepository.findByUsername(username)
+                .orElseGet(() -> {
+                    return null;
+                });
     }
 
     /*

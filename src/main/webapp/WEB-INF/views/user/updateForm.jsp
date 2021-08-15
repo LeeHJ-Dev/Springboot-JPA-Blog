@@ -11,11 +11,15 @@
             <input type="text" class="form-control" placeholder="Enter Username" id="username" value="${principal.user.username}" readonly>
         </div>
 
-        <!-- 패스워드 -->
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" placeholder="Enter password" id="password">
-        </div>
+        <c:if test = "${empty principal.user.oauth}">
+            <!-- 패스워드 -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" placeholder="Enter password" id="password">
+            </div>
+        </c:if>
+
+
 
         <!-- 이메일 -->
         <div class="form-group">

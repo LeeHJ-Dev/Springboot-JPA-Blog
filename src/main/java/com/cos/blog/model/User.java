@@ -36,9 +36,12 @@ public class User {
     @Column(nullable = true, length = 50)
     private RoleType role;                  //USER, ADMIN
 
+    @Column(nullable = true, length = 50)
+    private String oauth;       //kakao, google
+
     @CreationTimestamp //시간이 자동 입력
     private Timestamp createDate;
 
- //   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
- //   private List<Board> boardList = new ArrayList<Board>();
+    //   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    //   private List<Board> boardList = new ArrayList<Board>();
 }
