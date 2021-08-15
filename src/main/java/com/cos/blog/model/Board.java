@@ -36,7 +36,7 @@ public class Board {
     private User user; //객체지향은 오브젝트로 관리. 포린키가 아님.
 
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) //mappedBy 연관관계의 주인이 아니다.(난 fk가 아니에요) db에 컬럼을 만들지 마세요.
-    private List<Reply> reply = new ArrayList<>();
+    private List<Reply> replys = new ArrayList<>();
 
     @CreationTimestamp //insert, update
     private Timestamp createDate;

@@ -62,8 +62,7 @@ public class BoardController {
      * @return WEB-INF/view/board/saveDe.jsp file name return;
      */
     @GetMapping(value = "/board/{id}")
-    public String findById(Model model,
-                           @PathVariable("id") Integer id) {
+    public String findById(Model model, @PathVariable("id") Integer id) {
         model.addAttribute("board", boardService.글상세보기(id));
         return "/board/detail";
     }
