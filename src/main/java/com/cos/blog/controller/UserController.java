@@ -18,16 +18,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.UUID;
 
 /**
  * 1. 인증이 안된 사용자들이 출입할 수 있는 경로를 /auth/** 허용한다.
@@ -39,15 +34,15 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Value("${cos.key}")
     private String cosKey;
 
     /**
-     * 고객이 회원가입을 버튼을 클릭했을경우 회원가입 폼을 제공한다.
+     * ### 화면(폼) 경로제공 ###
+     * 사용자가 회원가입 메뉴를 클릭했을 경우 회원가입 폼 주소를 리턴한다.
+     * Spring Security Configure andMatchers(/auth/**).permitAll()
      *
      * @return /WEB-INF/views/user/joinForm.jsp file return
      */
@@ -57,8 +52,9 @@ public class UserController {
     }
 
     /**
-     * 회원가입한 고객이 로그인 버튼을 클릭했을경우 로그인폼을 제공한다.
-     *
+     * ### 화면(폼) 경로제공 ###
+     * 사용자가 로그인을 진행하는 경우 로그인 폼을 제공한다.
+     * Spring Security Configure andMatchers(/auth/**).permitAll()
      * @return /WEB-INF/views/user/loginForm.jsp file return
      */
     @GetMapping(value = "/auth/loginForm")
@@ -67,13 +63,13 @@ public class UserController {
     }
 
     /**
-     * 회원정보 수정을 클릭했을경우 회원정보 수정 폼을 제공한다.
-     *
+     * ### 화면(폼) 경로제공 ###
+     * 사용자가 로그인(인증) 후 회원정보 수정을 진행하는 경우 회원정보수정 폼을 제공한다.
+     * Spring Security Configure anyRequest().authenticated()
      * @return /WEB-INF/views/user/updateForm.jsp file return
      */
     @GetMapping(value = "/user/updateForm")
     public String updateForm() {
-        System.out.println("UserController.updateForm");
         return "/user/updateForm";
     }
 

@@ -6,11 +6,6 @@ let index = {
         $("#btn-update").on("click",()=>{
             this.update();
         });
-        /*
-        $("#btn-login").on("click",()=>{
-            this.login();
-        });
-        */
     },
     save: function(){
         //alert("save function");
@@ -31,10 +26,12 @@ let index = {
             contentType: "application/json; charset=utf-8",     //body데이터가 어떤 타입인지(mime)
             dataType: "json" //요청을 서버로해서 응답이 왔을 때
         }).done(function(resp){
-            //성공
-            alert("회원가입이 완료되었습니다.");
-            //console.log(resp);
-            location.href = "/";
+            if(resp.status == 500){
+                alert("회원가입이 완료되었습니다.");
+            }else{
+                alert("회원가입이 완료되었습니다.");
+                location.href = "/";
+            }
         }).fail(function(error){
             //실패
             alert(JSON.stringify(error));
